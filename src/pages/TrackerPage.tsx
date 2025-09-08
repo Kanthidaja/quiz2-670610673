@@ -21,6 +21,25 @@ export default function ExpenseTracker() {
   const [opened, { open, close }] = useDisclosure(false);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const categories = ["Food", "Transport", "Entertainment"];
+  const [name, setName] = useState<string>("");
+  const [amount, setAmount] = useState<string | number>(0);
+  const [category, setCategory] = useState<string | null>(null);
+   const [NameError, setNameError] = useState(true);
+
+  const handleSubmit = () => {};
+
+  // หากต้องการแปง type string เป็น type number สามารถดูตัวอย่างนี้ได้
+  let val_number: number = Number("500.0");
+  console.log(val_number + 100); // 600.0
+
+  const inputNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(event.target.value===""){
+      setNameError(true);
+    }else{
+     setNameError(false);
+    }
+    setName(event.target.value);
+  };
 
   return (
     <Container style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
@@ -33,7 +52,7 @@ export default function ExpenseTracker() {
       <Modal opened={opened} onClose={close} title="Add expense">
         {/* Modal content */}
               <Stack
-              h={300}
+              h={420}
               bg="var(--mantine-color-body)"
               align="stretch"
               justify="center"
@@ -43,17 +62,25 @@ export default function ExpenseTracker() {
               label="Expense Name"
               description="Expense Name"
               placeholder="E.g.,Coca-Cola"
+              mt="md"
+              error="Expense Name is required"
+              onChange={inputNameOnChange}
+              value={name}
              />
               <NumberInput
               label="Amount"
               description="Amount"
               placeholder="0"
+               mt="md"
+              error="Amount is required"
             />
                  <Select
               description="Category"
               label="Category"
               placeholder="Select Category"
-              data={['Transport', 'Entertainment']}
+              data={categories}
+              mt="md"
+              error="Categories is required"
             />
             <Button fullWidth>Submit</Button>
             </Stack>
