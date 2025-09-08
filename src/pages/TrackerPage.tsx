@@ -8,34 +8,16 @@ import { Modal,
   Divider,Title} from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 
-type Expense = {
-  id: string;
-  name: string;
-  amount: number | string;
-  category: string;
-};
-
 export default function ExpenseTracker() {
   const [opened, { open, close }] = useDisclosure(false);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
   const categories = ["Food", "Transport", "Entertainment"];
   const [name, setName] = useState<string>("");
-  const [amount, setAmount] = useState<string | number>(0);
-  const [category, setCategory] = useState<string | null>(null);
-   const [NameError, setNameError] = useState(true);
-
-  const handleSubmit = () => {};
 
   // หากต้องการแปง type string เป็น type number สามารถดูตัวอย่างนี้ได้
   let val_number: number = Number("500.0");
   console.log(val_number + 100); // 600.0
 
   const inputNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.value===""){
-      setNameError(true);
-    }else{
-     setNameError(false);
-    }
     setName(event.target.value);
   };
 
