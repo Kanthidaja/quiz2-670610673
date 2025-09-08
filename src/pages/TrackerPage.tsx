@@ -5,9 +5,7 @@ import { Modal,
   Select,Container,
   Button,
   Stack,
-  Fieldset,MultiSelect,Divider,Title} from "@mantine/core";
-import { v4 as uuidv4 } from "uuid";
-import ModalRegister from "../components/Modal";
+  Divider,Title} from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 
 type Expense = {
