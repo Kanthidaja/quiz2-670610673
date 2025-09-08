@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Button, Stack, Title, Divider, Container } from "@mantine/core";
+import { Modal,
+  TextInput,
+  NumberInput,
+  Select,Container,
+  Button,
+  Stack,
+  Fieldset,MultiSelect,Divider,Title} from "@mantine/core";
 import { v4 as uuidv4 } from "uuid";
+import ModalRegister from "../components/Modal";
+import { useDisclosure } from '@mantine/hooks';
 
 type Expense = {
   id: string;
@@ -10,7 +18,7 @@ type Expense = {
 };
 
 export default function ExpenseTracker() {
-  const [opened, setOpened] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const categories = ["Food", "Transport", "Entertainment"];
 
@@ -19,7 +27,40 @@ export default function ExpenseTracker() {
       <Title order={2} mb="md">
         Expense Tracker
       </Title>
-      <Button>Add Expense Item</Button>
+      <Button variant="filled" onClick={open}>
+        Add Expense Item
+      </Button>
+      <Modal opened={opened} onClose={close} title="Add expense">
+        {/* Modal content */}
+              <Stack
+              h={300}
+              bg="var(--mantine-color-body)"
+              align="stretch"
+              justify="center"
+              gap="md"
+            >
+              <TextInput
+              label="Expense Name"
+              description="Expense Name"
+              placeholder="E.g.,Coca-Cola"
+             />
+              <NumberInput
+              label="Amount"
+              description="Amount"
+              placeholder="0"
+            />
+                 <Select
+              description="Category"
+              label="Category"
+              placeholder="Select Category"
+              data={['Transport', 'Entertainment']}
+            />
+            <Button fullWidth>Submit</Button>
+            </Stack>
+      </Modal>
+
+
+      
       {/* Type additional AddExpenseModal here. */}
 
       <Divider my="md" />
